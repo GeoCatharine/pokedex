@@ -11,6 +11,7 @@ interface PokemonState {
 type Pokemon = {
   name: string;
   url: string;
+  info?: object;
 };
 
 export const usePokemonStore = defineStore('pokemons', {
@@ -34,6 +35,11 @@ export const usePokemonStore = defineStore('pokemons', {
         this.nextLink = response.data.next;
         this.prevLink = response.data.previous;
         this.count = response.data.count;
+
+        this.pokedex.forEach(async (pokemon, index) => {
+          const response = await api.get(pokemon.url);
+          this.pokedex[index].info = response.data;
+        });
       } catch (error) {
         throw new Error('Failed to fetch pokemons');
       }

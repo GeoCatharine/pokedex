@@ -31,7 +31,7 @@
               </q-card-section>
               <q-separator />
               <q-card-section class="flex flex-center">
-                <div>{{ 'test' }}</div>
+                <div><img :src="props.row.info.sprites.front_default" /></div>
               </q-card-section>
             </q-card>
           </div>
