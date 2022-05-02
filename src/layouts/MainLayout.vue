@@ -1,9 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated style="height: 100px" class="row items-center">
       <q-toolbar>
-        <q-toolbar-title> Quasar App </q-toolbar-title>
-        <div>Quasar v{{ $q.version }}</div>
+        <q-toolbar-title class="row items-center">
+          <h1>Pokedex</h1>
+          <img src="../assets/pokeball.svg" alt="pokeball" width="60" />
+        </q-toolbar-title>
+        <div>by Geometricat</div>
       </q-toolbar>
     </q-header>
 
@@ -26,3 +29,15 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="sass">
+
+.q-toolbar
+  padding: 0 40px
+
+.q-toolbar__title
+  h1
+    font-size: 35px
+    padding: 0
+    line-height: 1.5rem
+    margin-right: 20px
+</style>

@@ -6,12 +6,45 @@ interface PokemonState {
   nextLink: string | null;
   prevLink: string | null;
   count: number;
+  selectedPokemon?: Pokemon;
 }
 
-type Pokemon = {
+export type Pokemon = {
   name: string;
   url: string;
-  info?: object;
+  info?: PokemonInfo;
+};
+
+export type PokemonInfo = {
+  abilities: Array<{
+    slot: number;
+    ability: {
+      name: string;
+      url: string;
+    };
+  }>;
+  height: number;
+  weight: number;
+  order: number;
+  sprites: {
+    front_default: string;
+    back_default: string;
+    front_shiny: string;
+    back_shiny: string;
+  };
+  types: Array<{
+    slot: number;
+    type: {
+      name: string;
+      url: string;
+    };
+  }>;
+  stats: Array<{
+    base_stat: number;
+    stat: {
+      name: string;
+    };
+  }>;
 };
 
 export const usePokemonStore = defineStore('pokemons', {
@@ -20,12 +53,14 @@ export const usePokemonStore = defineStore('pokemons', {
     nextLink: null,
     prevLink: null,
     count: 0,
+    selectedPokemon: undefined,
   }),
   getters: {
     getPokemons: (state) => state.pokedex,
     getNextLink: (state) => state.nextLink,
     getPrevLink: (state) => state.prevLink,
     getCount: (state) => state.count,
+    getSelectedPokemon: (state) => state.selectedPokemon,
   },
   actions: {
     async fetchPokemons() {
@@ -43,6 +78,10 @@ export const usePokemonStore = defineStore('pokemons', {
       } catch (error) {
         throw new Error('Failed to fetch pokemons');
       }
+    },
+
+    setSelectedPokemon(pokemon: Pokemon) {
+      this.selectedPokemon = pokemon;
     },
   },
 });
